@@ -121,9 +121,9 @@ class CategoryController extends Controller
             $category->user_id = \Auth::user()->id;
             $category->updated_at = Carbon::now();
             $save = $category->save();*/
-            $save=Category::find($id)->update([
-                'category_name'=>$request->category_name,
-                'user_id' =>\Auth::user()->id,
+            $save = Category::find($id)->update([
+                'category_name' => $request->category_name,
+                'user_id' => \Auth::user()->id,
                 'updated_at' => Carbon::now()
             ]);
             if ($save) {
@@ -155,15 +155,37 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $deleted = $category->forceDelete();
-        if ($deleted) {
 
+        $deleted = Category::find($id)->delete();
+
+        if ($deleted) {
+            DB::commit();
             return redirect()->back()->with('success', 'Category is deleted.');
 
         } else {
+            DB::rollBack();
             return redirect()->back()->with('error', 'ERROR ! Category is not deleted.');
         }
 
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * Alternative Delete Method
+     */
+
+    public function delete($id)
+    {
+        $deleted = Category::find($id)->delete();
+
+        if ($deleted) {
+            DB::commit();
+            return redirect()->back()->with('success', 'Category is deleted.');
+
+        } else {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'ERROR ! Category is not deleted.');
+        }
     }
 }

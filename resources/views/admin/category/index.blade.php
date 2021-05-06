@@ -57,8 +57,16 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{route('category.edit',$category->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('category.destroy',$category->id)}}" class="btn btn-danger">Delete</a>
+                                            <a href="{{route('category.edit',$category->id)}}" class="btn btn-info ">Edit</a>
+                                            <a href="{{route('delete',$category->id)}}" class="btn btn-danger ">Delete</a>
+
+                                            <!--
+                                            <a href="{{route('category.edit',$category->id)}}" class="btn btn-info float-left mr-2">Edit</a>
+                                            <form method="POST" action="{{route('category.destroy',$category->id)}}">
+                                                @csrf
+                                                @method('DELETE')
+                                            <button class="btn btn-danger">Delete</button>
+                                            </form>-->
                                         </td>
                                     </tr>
                                 @endforeach

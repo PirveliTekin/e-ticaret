@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/about', AboutController::class);
     Route::resource('/contact', ContactController::class);
     Route::resource('/category', CategoryController::class);
+    Route::get('/category/delete/{id}',[CategoryController::class,'delete'])->name('delete');
 });
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users=User::all();
