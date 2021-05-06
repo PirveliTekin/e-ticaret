@@ -17,7 +17,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index');
+
+        //$categories=Category::all()->paginate(5);
+        $categories = Category::latest()->paginate(5);
+        Carbon::setLocale('tr');
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -39,14 +43,15 @@ class CategoryController extends Controller
     public function store(RequestCategory $request)
     {
         $request->validated();
-        $isCategory = Category::find($request->category_name);
+        $isCategory = Category::where('category_name', $request->category_name)->first();
+
         if (!$isCategory) {
             DB::beginTransaction();
             try {
                 $insert = Category::insert([
                     'category_name' => $request->category_name,
-                    'user_id'=>\Auth::user()->id,
-                    'created_at'=>Carbon::now()
+                    'user_id' => \Auth::user()->id,
+                    'created_at' => Carbon::now()
 
                 ]);
                 if ($insert) {
@@ -58,18 +63,18 @@ class CategoryController extends Controller
             } catch (\Exception $exception) {
                 $success = true;
             }
-            if($success===true){
+            if ($success === true) {
                 DB::commit();
-                return redirect()->back()->with('success','Category successfully added.');
+                return redirect()->back()->with('success', 'Category successfully added.');
 
-            }else{
+            } else {
                 DB::rollBack();
-                return redirect()->back()->with('error','Error ! Category could not be added');
+                return redirect()->back()->with('error', 'Error ! Category could not be added');
             }
 
         } else {
             DB::rollBack();
-            return redirect()->back()->with('error','Error ! Category could not be added');
+            return redirect()->back()->with('error', 'Error ! There is a category with this name');
         }
 
     }
@@ -93,7 +98,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $singleCategory = Category::find($id);
+        $categories = Category::latest()->paginate(5);
+        return view('admin.category.edit', compact('singleCategory', 'categories'));
     }
 
     /**
@@ -103,9 +110,36 @@ class CategoryController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RequestCategory $request, $id)
     {
-        //
+        $request->validated();
+
+        DB::beginTransaction();
+        try {
+            $category = Category::find($id);
+            $category->category_name = $request->category_name;
+            $category->user_id = \Auth::user()->id;
+            $category->updated_at = Carbon::now();
+            $save = $category->save();
+            if ($save) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+
+        } catch (\Exception $exception) {
+            $success = true;
+        }
+        if ($success === true) {
+            DB::commit();
+            return redirect()->back()->with('success', 'Category successfully updated.');
+
+        } else {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error ! Category could not updated');
+        }
+
+
     }
 
     /**
@@ -116,6 +150,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $deleted = $category->forceDelete();
+        if ($deleted) {
+
+            return redirect()->back()->with('success', 'Category is deleted.');
+
+        } else {
+            return redirect()->back()->with('error', 'ERROR ! Category is not deleted.');
+        }
+
     }
 }

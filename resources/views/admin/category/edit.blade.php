@@ -76,20 +76,21 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            Add Category
+                            Edit Category
                         </div>
                         <div class="card-body">
 
-                            <form action="{{route('category.store')}}" method="POST">
+                            <form action="{{route('category.update',$singleCategory->id)}}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group mb-2">
-                                    <label for="category_name">Category Name</label>
-                                    <input name="category_name" id="category_name" type="text" class="form-control">
+                                    <label for="category_name" >Category Name</label>
+                                    <input value="{{$singleCategory->category_name}}" name="category_name" id="category_name" type="text" class="form-control">
                                     @error('category_name')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary float-right ">Add Category</button>
+                                <button type="submit" class="btn btn-primary float-right ">Update Category</button>
                             </form>
 
                         </div>
