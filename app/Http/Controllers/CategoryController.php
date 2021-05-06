@@ -116,11 +116,16 @@ class CategoryController extends Controller
 
         DB::beginTransaction();
         try {
-            $category = Category::find($id);
+            /*$category = Category::find($id);
             $category->category_name = $request->category_name;
             $category->user_id = \Auth::user()->id;
             $category->updated_at = Carbon::now();
-            $save = $category->save();
+            $save = $category->save();*/
+            $save=Category::find($id)->update([
+                'category_name'=>$request->category_name,
+                'user_id' =>\Auth::user()->id,
+                'updated_at' => Carbon::now()
+            ]);
             if ($save) {
                 $success = true;
             } else {
