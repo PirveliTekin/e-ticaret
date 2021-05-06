@@ -58,13 +58,14 @@
                                         </td>
                                         <td>
                                             <a href="{{route('category.edit',$category->id)}}" class="btn btn-info ">Edit</a>
-                                            <a href="{{route('delete',$category->id)}}" class="btn btn-danger ">Delete</a>
+                                            <a href="{{route('delete',$category->id)}}"
+                                               class="btn btn-danger ">Delete</a>
 
-                                            <!--
+                                        <!--
                                             <a href="{{route('category.edit',$category->id)}}" class="btn btn-info float-left mr-2">Edit</a>
                                             <form method="POST" action="{{route('category.destroy',$category->id)}}">
                                                 @csrf
-                                                @method('DELETE')
+                                        @method('DELETE')
                                             <button class="btn btn-danger">Delete</button>
                                             </form>-->
                                         </td>
@@ -80,6 +81,66 @@
                         </div>
 
                     </div>
+                    @if($trashCat!='Trash not full')
+                        <div class="card">
+
+                            <div class="card-header">
+                                Trash Box
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php($j=1)
+                                    @foreach($trashCat as $trash)
+                                        <tr>
+                                            <th scope="row">{{$j++}}</th>
+                                            <td>{{$trash->category_name}}</td>
+                                            <td> {{$trash->user->name}}</td>
+                                            <td>
+                                                @if($trash->created_at===null)
+                                                    <span>No Date Set</span>
+                                                @else
+                                                    {{$trash->created_at->diffForHumans()}}
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                <a href="{{route('restore',$trash->id)}}"
+                                                   class="btn btn-info ">Restore</a>
+                                                <a href="{{route('forceDelete',$trash->id)}}" class="btn btn-danger ">Force
+                                                    Delete</a>
+
+                                            <!--
+                                            <a href="{{route('category.edit',$trash->id)}}" class="btn btn-info float-left mr-2">Edit</a>
+                                            <form method="POST" action="{{route('category.destroy',$trash->id)}}">
+                                                @csrf
+                                            @method('DELETE')
+                                                <button class="btn btn-danger">Delete</button>
+                                                </form>-->
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <nav aria-label="Page navigation example">
+                                    {{$trashCat->links()}}
+                                </nav>
+                            </div>
+
+                        </div>
+                        @endif
+
                 </div>
                 <div class="col-md-4">
                     <div class="card">

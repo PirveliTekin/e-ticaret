@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -27,7 +28,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/contact', ContactController::class);
     Route::resource('/category', CategoryController::class);
     Route::get('/category/delete/{id}',[CategoryController::class,'delete'])->name('delete');
+    Route::get('/category/restore/{id}',[CategoryController::class,'restore'])->name('restore');
+    Route::get('/category/forceDelete/{id}',[CategoryController::class,'forceDelete'])->name('forceDelete');
 });
+Route::middleware(['auth'])->group(function () {
+
+    Route::resource('/brand', BrandController::class);
+    Route::get('/brand/delete/{id}', [BrandController::class,'delete'])->name('brandDelete');
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users=User::all();
     return view('dashboard',compact('users'));

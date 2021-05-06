@@ -20,8 +20,15 @@ class CategoryController extends Controller
 
         //$categories=Category::all()->paginate(5);
         $categories = Category::latest()->paginate(5);
-        Carbon::setLocale('tr');
-        return view('admin.category.index', compact('categories'));
+        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
+
+        if($trashCat){
+            return view('admin.category.index', compact('categories', 'trashCat'));
+        }else{
+            $trashCat ='Trash not full';
+            return view('admin.category.index', compact('categories', 'trashCat'));
+        }
+
     }
 
     /**
@@ -187,5 +194,32 @@ class CategoryController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'ERROR ! Category is not deleted.');
         }
+    }
+
+    public function forceDelete($id)
+    {
+        $forceDelete=Category::onlyTrashed()->find($id)->forceDelete();
+        if ($forceDelete) {
+            DB::commit();
+            return redirect()->back()->with('success', 'Category force delete successfully.');
+
+        } else {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'ERROR ! Category not force delete.');
+        }
+
+    }
+    public function restore($id)
+    {
+        $restore=Category::withTrashed()->find($id)->restore();
+        if ($restore) {
+            DB::commit();
+            return redirect()->back()->with('success', 'Category restore successfully.');
+
+        } else {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'ERROR ! Category not restore.');
+        }
+
     }
 }
