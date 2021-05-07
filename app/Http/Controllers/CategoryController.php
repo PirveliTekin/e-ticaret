@@ -21,7 +21,7 @@ class CategoryController extends Controller
         //$categories=Category::all()->paginate(5);
         $categories = Category::latest()->paginate(5);
         $trashCat = Category::onlyTrashed()->latest()->paginate(3);
-
+        Carbon::setLocale('tr');
         if($trashCat){
             return view('admin.category.index', compact('categories', 'trashCat'));
         }else{
@@ -107,6 +107,7 @@ class CategoryController extends Controller
     {
         $singleCategory = Category::find($id);
         $categories = Category::latest()->paginate(5);
+        Carbon::setLocale('tr');
         return view('admin.category.edit', compact('singleCategory', 'categories'));
     }
 
