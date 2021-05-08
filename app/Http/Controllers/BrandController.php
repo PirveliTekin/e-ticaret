@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\RequestBrand;
 use App\Http\Requests\RequestBrandEdit;
 use App\Models\Brand;
@@ -9,6 +10,7 @@ use App\Models\Multipic;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class BrandController extends Controller
@@ -229,6 +231,11 @@ class BrandController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function multipicAdd(Request $request)
     {
 
@@ -238,11 +245,21 @@ class BrandController extends Controller
             Image::make($image)->resize('300', '200')->save('image/multi/' . $name_gen);
             $last_img = 'image/multi/' . $name_gen;
             Multipic::insert([
-                    'image' => $last_img,
-                    'created_at' => Carbon::now()
-                ]);
+                'image' => $last_img,
+                'created_at' => Carbon::now()
+            ]);
         }
         return redirect()->back()->with('success', 'Pictures successfully added.');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function Logout()
+    {
+        Auth::logout();
+        return Redirect()->route('login')->with('success', 'User Logout');
     }
 
 }

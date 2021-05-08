@@ -3,8 +3,9 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Merhaba , {{Auth::user()->name}}
             <button type="button" class="btn btn-primary float-right">
-                Total User <span class="badge badge-light">{{count($users)}}</span>
+                Total User <span class="badge bg-light text-dark">{{count($users)}}</span>
             </button>
+
         </h2>
     </x-slot>
 

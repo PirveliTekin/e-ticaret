@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
@@ -40,9 +41,15 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/admin', IndexController::class);
+});
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users=User::all();
     return view('dashboard',compact('users'));
+    //return view('admin.index');
 
 })->name('dashboard');
+Route::get('/logout',[BrandController::class,'Logout'])->name('userLogout');
