@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RequestBrand;
 use App\Http\Requests\RequestBrandEdit;
 use App\Models\Brand;
+use App\Models\Multipic;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Intervention\Image\Facades\Image;
 
 class BrandController extends Controller
 {
@@ -44,12 +46,16 @@ class BrandController extends Controller
         $request->validated();
 
         $brand_image = $request->file('brand_image');
-        $name_gen = hexdec(uniqid());
+        /*$name_gen = hexdec(uniqid());
         $img_ext = strtolower($brand_image->getClientOriginalExtension());
         $img_name = $name_gen . '.' . $img_ext;
         $up_location = 'image/brand/';
         $last_img = $up_location . $img_name;
-        $brand_image->move($up_location, $img_name);
+        $brand_image->move($up_location, $img_name);*/
+
+        $name_gen = hexdec(uniqid()) . '.' . strtolower($brand_image->getClientOriginalExtension());
+        Image::make($brand_image)->resize('300', '200')->save('image/brand/' . $name_gen);
+        $last_img = 'image/brand/' . $name_gen;
 
         DB::beginTransaction();
         try {
@@ -191,7 +197,7 @@ class BrandController extends Controller
 
             } else {
                 DB::rollBack();
-                return redirect()-route('brand.index')->with('error', 'ERROR ! Category is not deleted.');
+                return redirect() - route('brand.index')->with('error', 'ERROR ! Category is not deleted.');
             }
         } else {
             DB::rollBack();
@@ -209,6 +215,34 @@ class BrandController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
+    public function multipic()
+    {
+        $multiImages = Multipic::all();
+        return view('admin.multipics.index', compact('multiImages'));
+
+    }
+
+    public function multipicAdd(Request $request)
+    {
+
+        $images = $request->file('image');
+        foreach ($images as $image) {
+            $name_gen = hexdec(uniqid()) . '.' . strtolower($image->getClientOriginalExtension());
+            Image::make($image)->resize('300', '200')->save('image/multi/' . $name_gen);
+            $last_img = 'image/multi/' . $name_gen;
+            Multipic::insert([
+                    'image' => $last_img,
+                    'created_at' => Carbon::now()
+                ]);
+        }
+        return redirect()->back()->with('success', 'Pictures successfully added.');
     }
 
 }

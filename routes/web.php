@@ -35,6 +35,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/brand', BrandController::class);
     Route::get('/brand/delete/{id}', [BrandController::class,'delete'])->name('brandDelete');
+    Route::get('/multi/image', [BrandController::class,'multipic'])->name('multipic');
+    Route::get('/multi/add', [BrandController::class,'multipicAdd'])->name('multipicAdd');
+
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
