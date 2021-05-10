@@ -1,26 +1,26 @@
 <div class="col-md-8">
     @if (Session('error'))
 
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-dismissible fade show alert-danger" role="alert">
             <strong>{{ Session('error') }}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         </div>
         {{Session::forget('error')}}
     @elseif(Session('success'))
 
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-dismissible fade show alert-success" role="alert">
             <strong>{{ Session('success') }}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         </div>
         {{Session::forget('success')}}
     @endif
-    <div class="card">
-
-        <div class="card-header">
-            All Brands
+    <div class="card card-default">
+        <div class="card-header card-header-border-bottom">
+            <h2>Brand List</h2>
         </div>
         <div class="card-body">
-            <table class="table">
+
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -31,7 +31,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php($i=1)
                 @foreach($brands as $brand)
                     <tr>
                         <th scope="row">{{$brands->firstItem() + $loop->index}}</th>
@@ -52,15 +51,15 @@
                         </td>
                     </tr>
                 @endforeach
+
                 </tbody>
             </table>
         </div>
         <div>
-            <nav aria-label="Page navigation example">
+            <nav class="float-right m-3" aria-label="Page navigation example">
                 {{$brands->links()}}
             </nav>
         </div>
-
     </div>
 
 </div>

@@ -179,12 +179,12 @@
         <footer class="footer mt-auto">
             <div class="copyright bg-white">
                 <p>
-                    &copy; <span id="copy-year">2019</span> Copyright Sleek Dashboard Bootstrap Template by
+                    &copy; <span id="copy-year">2021</span> Copyright
                     <a
                         class="text-primary"
-                        href="http://www.iamabdus.com/"
+                        href="http://www.tesetturpazari.com/"
                         target="_blank"
-                    >Abdus</a
+                    >Tesettur Pazarı</a
                     >.
                 </p>
             </div>
