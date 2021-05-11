@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestSlider;
 use App\Http\Requests\RequestSliderEdit;
-use App\Models\Brand;
 use App\Models\Slider;
 use Carbon\Carbon;
 use DB;
-use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+
 
 class SliderController extends Controller
 {
@@ -137,11 +136,11 @@ class SliderController extends Controller
             }
             if ($success === true) {
                 DB::commit();
-                return redirect()->back()->with('success', 'Slider successfully updated.');
+                return redirect()->back()->with('toast_success', 'Slider successfully updated.');
 
             } else {
                 DB::rollBack();
-                return redirect()->back()->with('error', 'Error ! Slider could not be updated');
+                return redirect()->back()->with('toast_error', 'Error ! Slider could not be updated');
             }
 
         } else {

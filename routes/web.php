@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AboutController;
+
+use App\Http\Controllers\Admin\AboutAdminController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\BrandController;
@@ -28,25 +29,26 @@ Route::get('/home', function () {
  * Frontend Controller
  *
  */
-Route::get('/',[HomeController::class,'index']);
+Route::get('/', [HomeController::class, 'index']);
 
 /**
  * Admin Controller
  *
  */
 Route::middleware(['auth'])->group(function () {
-    Route::resource('/about', AboutController::class);
-    Route::resource('/contact', ContactController::class);
+    Route::resource('/aboutadmin', AboutAdminController::class);
+    Route::get('/aboutadmin/delete/{id}', [AboutAdminController::class,'delete'])->name('aboutDelete');
+    Route::resource('/admin.contact', ContactController::class);
     Route::resource('/category', CategoryController::class);
-    Route::get('/category/delete/{id}',[CategoryController::class,'delete'])->name('delete');
-    Route::get('/category/restore/{id}',[CategoryController::class,'restore'])->name('restore');
-    Route::get('/category/forceDelete/{id}',[CategoryController::class,'forceDelete'])->name('forceDelete');
+    Route::get('/category/delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+    Route::get('/category/restore/{id}', [CategoryController::class, 'restore'])->name('restore');
+    Route::get('/category/forceDelete/{id}', [CategoryController::class, 'forceDelete'])->name('forceDelete');
     Route::resource('/brand', BrandController::class);
-    Route::get('/brand/delete/{id}', [BrandController::class,'delete'])->name('brandDelete');
-    Route::get('/multi/image', [BrandController::class,'multipic'])->name('multipic');
-    Route::get('/multi/add', [BrandController::class,'multipicAdd'])->name('multipicAdd');
+    Route::get('/brand/delete/{id}', [BrandController::class, 'delete'])->name('brandDelete');
+    Route::get('/multi/image', [BrandController::class, 'multipic'])->name('multipic');
+    Route::get('/multi/add', [BrandController::class, 'multipicAdd'])->name('multipicAdd');
     Route::resource('/slider', SliderController::class);
-    Route::get('/slider/delete/{id}', [SliderController::class,'delete'])->name('sliderDelete');
+    Route::get('/slider/delete/{id}', [SliderController::class, 'delete'])->name('sliderDelete');
 });
 Route::middleware(['auth'])->group(function () {
     Route::resource('/admin', IndexController::class);
@@ -54,9 +56,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $users=User::all();
+    $users = User::all();
     //return view('dashboard',compact('users'));
     return view('admin.index');
 
 })->name('dashboard');
-Route::get('/logout',[BrandController::class,'Logout'])->name('userLogout');
+Route::get('/logout', [BrandController::class, 'Logout'])->name('userLogout');

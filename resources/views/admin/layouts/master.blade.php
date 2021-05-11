@@ -37,6 +37,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="{{asset('backend/assets/plugins/nprogress/nprogress.js')}}"></script>
+
 </head>
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
 <script>
@@ -217,8 +218,7 @@
 <script src="{{asset('backend/assets/js/date-range.js')}}"></script>
 <script src="{{asset('backend/assets/js/map.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom.js')}}"></script>
-
-
+@include('sweetalert::alert')
 </body>
 </html>
 

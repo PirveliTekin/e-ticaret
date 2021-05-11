@@ -1,19 +1,5 @@
 <div class="col-md-8">
-    @if (Session('error'))
 
-        <div class="alert alert-dismissible fade show alert-danger" role="alert">
-            <strong>{{ Session('error') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-        </div>
-        {{Session::forget('error')}}
-    @elseif(Session('success'))
-
-        <div class="alert alert-dismissible fade show alert-success" role="alert">
-            <strong>{{ Session('success') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-        </div>
-        {{Session::forget('success')}}
-    @endif
     <div class="card card-default">
         <div class="card-header card-header-border-bottom">
             <h2>Slider List</h2>

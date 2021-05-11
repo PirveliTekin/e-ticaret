@@ -58,6 +58,14 @@
 
                                 </a>
                             </li>
+                            <li>
+                                <a class="sidenav-item-link" href="{{route('aboutadmin.index')}}">
+                                    <span class="nav-text">Home About</span>
+
+                                    <span class="badge badge-success">new</span>
+
+                                </a>
+                            </li>
 
                         </div>
                     </ul>
