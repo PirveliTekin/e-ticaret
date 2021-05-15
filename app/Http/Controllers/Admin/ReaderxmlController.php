@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use ACFBentveld\XML\Transformers\ArrayTransformer;
-use ACFBentveld\XML\XML;
+
 use App\Http\Controllers\Controller;
 use DOMDocument;
 use Illuminate\Http\Request;
