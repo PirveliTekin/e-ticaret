@@ -219,6 +219,7 @@
 <script src="{{asset('backend/assets/js/map.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom.js')}}"></script>
 @include('sweetalert::alert')
+@include('sweetalert::confirm')
 </body>
 </html>
 

@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\Admin\AboutAdminController;
+use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\ReaderxmlController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -29,7 +31,7 @@ Route::get('/home', function () {
  * Frontend Controller
  *
  */
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('anasayfa');
 
 /**
  * Admin Controller
@@ -49,7 +51,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/multi/add', [BrandController::class, 'multipicAdd'])->name('multipicAdd');
     Route::resource('/slider', SliderController::class);
     Route::get('/slider/delete/{id}', [SliderController::class, 'delete'])->name('sliderDelete');
+    Route::resource('/admincontact',AdminContactController::class);
+    Route::get('/admincontact/delete/{id}',[AdminContactController::class,'delete'])->name('adminContactDelete');
+    Route::get('/messages',[AdminContactController::class,'messageContact'])->name('messageContact');
+    Route::resource('/readerxml',ReaderxmlController::class);
+
 });
+Route::resource('/contact',ContactController::class);
 Route::middleware(['auth'])->group(function () {
     Route::resource('/admin', IndexController::class);
 });

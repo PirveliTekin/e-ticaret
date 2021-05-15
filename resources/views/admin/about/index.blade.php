@@ -8,16 +8,16 @@
                     <h2 class="float-left">Home About</h2>
                 </div>
                 <div class="card-body">
-                    <a href="{{route('aboutadmin.create')}}"  class="btn btn-info float-left mb-5">Add About</a>
+                    <a href="{{route('aboutadmin.create')}}" class="btn btn-info float-left mb-5">Add About</a>
                     <table class="table table-hover">
                         <thead>
                         <tr class="d-flex">
 
                             <th class="col-2">Title</th>
-                            <th class="col-3" >Short Description</th>
-                            <th class="col-4" >Long Description</th>
+                            <th class="col-3">Short Description</th>
+                            <th class="col-4">Long Description</th>
                             <th class="col-1">Creat at</th>
-                            <th class="col-2" >Action</th>
+                            <th class="col-2">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,7 +28,7 @@
                                 <td class="col-2">{{$homeAbout->title}}</td>
                                 <td class="col-3">{{$homeAbout->short_dis}}</td>
                                 <td class="col-4">{{$homeAbout->long_dis}}</td>
-                                <td class="col-1" >
+                                <td class="col-1">
                                     @if($homeAbout->created_at===null)
                                         <span>No Date Set</span>
                                     @else
@@ -36,10 +36,10 @@
                                     @endif
 
                                 </td>
-                                <td class="col-2" >
+                                <td class="col-2">
                                     <a href="{{route('aboutadmin.edit',$homeAbout->id)}}" class="btn btn-info ">Edit</a>
-                                    @php(deleteConfirm("DİKKAT !","Sildiğiniz zaman geri alamayacaksınız.Silmek istediğinizden emin misiniz?",route('aboutDelete',$homeAbout->id)))
-                                    <a  href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger " >Delete</a>
+                                    <a href="{{route('aboutDelete',$homeAbout->id)}}" title="DİKKAT !"
+                                       data="Silmek İstediğinizden Emin misiniz?" class="btn btn-danger delete-confirm">Delete</a>
 
                                 </td>
                             </tr>

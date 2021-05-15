@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "acfbentveld/xml": "^4.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -15,7 +16,9 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
-        "realrashid/sweet-alert": "^3.2"
+        "orchestra/parser": "^6.1",
+        "realrashid/sweet-alert": "^3.2",
+        "ext-dom": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -46,7 +46,7 @@
 <!-- End Header -->
 
 <!-- ======= Hero Section ======= -->
-@include('layouts.body.slider')
+@yield('slider')
 <!-- End Hero -->
 <!-- ======= #main ======= -->
 <main id="main">
@@ -76,7 +76,8 @@
 
 <!-- Template Main JS File -->
 <script src="{{asset('frontend/assets/js/main.js')}}"></script>
-
+@include('sweetalert::alert')
+@include('sweetalert::confirm')
 </body>
 
 </html>

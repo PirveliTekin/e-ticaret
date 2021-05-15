@@ -14,8 +14,8 @@ class HomeController extends Controller
         //$sliders=\DB::table('sliders')->get();
         $brands=Brand::all();
         $sliders=Slider::all();
-        $homeAbout=HomeAbout::all();
-
+        $homeAbout=HomeAbout::first();
+        //return $homeAbout;
         return view('home',compact('brands','sliders','homeAbout'));
     }
 }
