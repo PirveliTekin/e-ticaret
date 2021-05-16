@@ -115,4 +115,12 @@ class ContactController extends Controller
     {
         //
     }
+
+    /**
+     * @param $id
+     */
+    public function delete($id)
+    {
+        //
+    }
 }

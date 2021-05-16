@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\AboutAdminController;
 use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\ReaderxmlController;
 use App\Http\Controllers\Admin\SliderController;
@@ -54,12 +55,16 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/admincontact',AdminContactController::class);
     Route::get('/admincontact/delete/{id}',[AdminContactController::class,'delete'])->name('adminContactDelete');
     Route::get('/messages',[AdminContactController::class,'messageContact'])->name('messageContact');
+    Route::get('/messagesDelete/{id}',[AdminContactController::class,'messagedelete'])->name('messageDelete');
     Route::resource('/readerxml',ReaderxmlController::class);
 
 });
 Route::resource('/contact',ContactController::class);
 Route::middleware(['auth'])->group(function () {
     Route::resource('/admin', IndexController::class);
+    //Change Password and User Profile Show
+    Route::get('/changepassword',[ChangePasswordController::class,'index'])->name('change.password');
+    Route::post('/password/update',[ChangePasswordController::class,'updatePass'])->name('update.password');
 });
 
 

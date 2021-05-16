@@ -17,6 +17,7 @@
                             <th scope="col">Subject</th>
                             <th scope="col">Message</th>
                             <th scope="col">Creat at</th>
+                            <th scope="col">Action</th>
 
                         </tr>
                         </thead>
@@ -35,6 +36,12 @@
                                     @else
                                         {{$contactMessage->created_at->diffForHumans()}}
                                     @endif
+
+                                </td>
+                                <td >
+
+                                    <a href="{{route('messageDelete',$contactMessage->id)}}" title="DİKKAT !"
+                                       data="Silmek İstediğinizden Emin misiniz?" class="btn btn-danger delete-confirm">Delete</a>
 
                                 </td>
 

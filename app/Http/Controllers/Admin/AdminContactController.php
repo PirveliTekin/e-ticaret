@@ -159,10 +159,29 @@ class AdminContactController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
     public function messageContact()
     {
-        $contactMessages=Contact::all();
+        $contactMessages = Contact::all();
         Carbon::setLocale('tr');
-        return view('admin.contact.message',compact('contactMessages'));
+        return view('admin.contact.message', compact('contactMessages'));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function messagedelete($id)
+    {
+        $delete = Contact::find($id)->delete();
+        if ($delete) {
+            return redirect()->back()->with('success', 'Başarı ile Silindi');
+        } else {
+            return redirect()->back()->with('error', 'Başarıyla Silindi');
+        }
     }
 }
