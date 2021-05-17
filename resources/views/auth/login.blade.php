@@ -77,6 +77,16 @@
                                     </ul>
                                 </div>
                             @endif
+                            @if(Session('success'))
+
+                                <div class="col-md-12 alert alert-success">
+                                    <ul>
+                                        <li class="text-black">{{ Session('success') }}</li>
+                                    </ul>
+                                </div>
+
+                                {{Session::forget('success')}}
+                            @endif
                             <div class="form-group col-md-12 mb-4">
                                 <input type="email" name="email" class="form-control input-lg" id="email"
                                        aria-describedby="emailHelp" placeholder="Email" :value="old('email')">

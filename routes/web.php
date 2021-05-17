@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
     //Change Password and User Profile Show
     Route::get('/changepassword',[ChangePasswordController::class,'index'])->name('change.password');
     Route::post('/password/update',[ChangePasswordController::class,'updatePass'])->name('update.password');
+    Route::get('/myProfileEdit',[ChangePasswordController::class,'myProfile'])->name('myProfile');
+    Route::get('/myProfile/update/{id}',[ChangePasswordController::class,'updateProfile'])->name('update.profile');
 });
 
 

@@ -140,7 +140,7 @@
                                     <img src="{{ Auth::user()->profile_photo_url }}" class="img-circle"
                                          alt="{{Auth::user()->name }}"/>
                                     <div class="d-inline-block">
-                                        Abdus Salam <small class="pt-1">{{ Auth::user()->email }}</small>
+                                        {{Auth::user()->name }} <small class="pt-1">{{ Auth::user()->email }}</small>
                                     </div>
                                 </li>
 
@@ -150,8 +150,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="email-inbox.html">
-                                        <i class="mdi mdi-email"></i> Message
+                                    <a href="{{route('myProfile')}}">
+                                        <i class="mdi mdi-account"></i> My Profile
                                     </a>
                                 </li>
                                 <li>
